@@ -21,10 +21,10 @@ package org.apache.stratos.autoscaler.applications.dependency.context;
 /**
  * ClusterContext to keep cluster level context information
  */
-public class ClusterContext extends ApplicationContext {
+public class ClusterChildContext extends ApplicationChildContext {
     private String serviceName;
 
-    public ClusterContext(String id, boolean killDependent) {
+    public ClusterChildContext(String id, boolean killDependent) {
         super(id ,killDependent);
     }
 

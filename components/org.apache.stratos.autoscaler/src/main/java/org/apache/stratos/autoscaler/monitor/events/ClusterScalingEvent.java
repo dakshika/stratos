@@ -16,10 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.stratos.autoscaler.applications.dependency.context;
+package org.apache.stratos.autoscaler.monitor.events;
 
-public class GroupContext extends ApplicationContext {
-    public GroupContext(String id, boolean killDependent) {
-        super(id ,killDependent);
+import org.apache.stratos.messaging.domain.topology.ClusterStatus;
+
+/**
+ * This will use to notify observers upon a cluster scaling events received.
+ */
+public class ClusterScalingEvent extends MonitorScalingEvent {
+
+    private String scalingAction;
+    private float factor;
+
+    public ClusterScalingEvent(String scalingAction, String id) {
+        super(id);
+        this.scalingAction = scalingAction;
+    }
+
+    public String getScalingAction() {
+        return scalingAction;
+    }
+
+    public void setScalingAction(String scalingAction) {
+        this.scalingAction = scalingAction;
     }
 }
