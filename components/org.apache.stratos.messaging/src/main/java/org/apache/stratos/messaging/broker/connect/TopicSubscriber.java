@@ -17,19 +17,22 @@
  * under the License.
  */
 
-package org.apache.stratos.messaging.domain.topology;
+package org.apache.stratos.messaging.broker.connect;
 
-import org.apache.stratos.messaging.domain.topology.lifecycle.LifeCycleState;
+import org.apache.stratos.messaging.broker.subscribe.MessageListener;
 
-import java.util.Stack;
+public abstract class TopicSubscriber implements TopicConnector {
 
-public interface LifeCycleStateTransitionBehavior<T extends LifeCycleState> {
+    protected final MessageListener messageListener;
+    protected String topicName;
 
-    public boolean isStateTransitionValid(T newState);
+    public TopicSubscriber (MessageListener messageListener, String topicName) {
+        this.messageListener = messageListener;
+        this.topicName = topicName;
+    }
 
-    public Stack<T> getTransitionedStates ();
-
-    public T getStatus();
-
-    public boolean setStatus(T newState);
+    /**
+     * Subscribe to a topic with a message listener.
+     */
+    public abstract void subscribe();
 }

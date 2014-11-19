@@ -17,17 +17,24 @@
  * under the License.
  */
 
-package org.apache.stratos.messaging.broker.connect;
+package org.apache.stratos.messaging.broker.connect.mqtt;
 
-/**
- * Topic connector factory.
- */
-public class TopicConnectorFactory {
+import org.apache.stratos.messaging.util.Util;
+
+import java.io.File;
+import java.util.Properties;
+
+public class MqttConstants {
+
+    public static final String MQTT_URL_DEFAULT = "defaultValue";
+
     /**
-     * Create topic connector instance.
-     * @return
+     * Quality of Service for message delivery:
+     * Setting it to 2 to make sure that message is guaranteed to deliver once
+     * using two-phase acknowledgement across the network.
      */
-    public static TopicConnector createConnector() {
-        return new MqttTopicConnector();
-    }
+    public static final int QOS = 2;
+    public static String CONFIG_FILE_LOCATION = System.getProperty("jndi.properties.dir");
+    public static Properties MQTT_PROPERTIES = Util.getProperties(CONFIG_FILE_LOCATION
+            + File.separator + "mqtttopic.properties");
 }

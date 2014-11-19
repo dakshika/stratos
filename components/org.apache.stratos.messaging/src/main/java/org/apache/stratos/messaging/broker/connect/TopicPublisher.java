@@ -16,28 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.stratos.autoscaler.monitor.events;
 
-import org.apache.stratos.messaging.domain.topology.ClusterStatus;
+package org.apache.stratos.messaging.broker.connect;
 
-/**
- * This will use to notify observers upon a cluster scaling events received.
- */
-public class ClusterScalingEvent extends MonitorScalingEvent {
+public interface TopicPublisher extends TopicConnector {
 
-    private String scalingAction;
-    private float factor;
-
-    public ClusterScalingEvent(String scalingAction, String id) {
-        super(id);
-        this.scalingAction = scalingAction;
-    }
-
-    public String getScalingAction() {
-        return scalingAction;
-    }
-
-    public void setScalingAction(String scalingAction) {
-        this.scalingAction = scalingAction;
-    }
+    /**
+     * Publish a message to a topic in the message broker.
+     * @param topicName
+     * @param message
+     */
+    public abstract void publish(String topicName, String message);
 }
