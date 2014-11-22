@@ -20,6 +20,8 @@
 package org.apache.stratos.messaging.domain.applications;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Data Holder for a Cluster.
@@ -38,7 +40,6 @@ public class ClusterDataHolder implements Serializable {
         this.serviceType = serviceType;
         this.clusterId = clusterId;
     }
-
 
     public String getServiceType() {
         return serviceType;
