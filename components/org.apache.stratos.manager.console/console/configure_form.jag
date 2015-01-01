@@ -107,7 +107,7 @@ switch (formtype) {
         }else{
             formDataEdit = list_data.kubernetesCluster;
             for (specNumber in list_data) {
-                if (list_data[specNumber].groupId == elements.action) {
+                if (list_data[specNumber].clusterId == elements.action) {
                     formDataEdit = list_data[specNumber];
                 }
 
