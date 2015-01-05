@@ -47,7 +47,7 @@ if (!elements) {
     if(!elements){
         elements = uriMatcher.match('/{context}/applications/{formtype}/{applicationId}/{action}');
         if(elements.action == 'view'){
-
+            applicationView = true;
         }else if(elements.action == 'deploy'){
             var applicationName = elements.applicationId;
             applicationDeploy = true;
@@ -132,6 +132,7 @@ var caramelData = {
     editorGroups: JSON.stringify(editorGroups),
     editorCartridges: JSON.stringify(editorCartridges),
     applicationTopology: applicationTopology,
+    applicationView:applicationView,
     applicationEditor: applicationEditor,
     applicationDeploy:applicationDeploy,
     applicationName:applicationName,
