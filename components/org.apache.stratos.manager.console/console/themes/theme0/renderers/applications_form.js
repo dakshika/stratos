@@ -22,7 +22,7 @@ var render = function (theme, data, meta, require) {
 
     if(data.error.length === 0 ){
 
-        if(data.applicationView == true) {
+        if(data.applicationTopology == true) {
             theme('index', {
                 page_meta: [
                     {
