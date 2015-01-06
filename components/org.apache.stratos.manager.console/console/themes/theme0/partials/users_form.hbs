@@ -101,7 +101,7 @@
                             </div>
                             <h2>{{tenantDomain}} </h2>
 
-                            <div class="toggle-menu-description">{{email}} - {{createdDate}} </div>
+                            <div class="toggle-menu-description">{{email}} - {{#UnixConvert createdDate}}{{/UnixConvert}} </div>
                         </div>
                     {{/each}}
                 {{/ifCond}}
