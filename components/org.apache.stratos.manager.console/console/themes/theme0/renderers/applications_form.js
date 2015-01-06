@@ -134,19 +134,11 @@ var render = function (theme, data, meta, require) {
                         {
                             partial: 'applications_view',
                             context: {
+                                applicationName: data.applicationName,
                                 formContext: data.breadcrumbPathLevelTwo,
                                 appName: data.appName,
-                                topology_data: data.topology_data,
-                                form_action: data.form_action,
-                                formHtml: data.formHtml,
-                                formData: data.formData,
-                                formDataRaw: data.formDataRaw,
-                                formDataEdit: data.formDataEdit,
-                                isForm: data.isForm,
-                                isEdit: data.isEdit,
-                                formTitle: data.formTitle,
-                                content_body: {sections: data.list_data
-                                }
+                                applicationJSON: data.applicationJSON,
+                                formTitle: data.formTitle
                             }
                         }
 
