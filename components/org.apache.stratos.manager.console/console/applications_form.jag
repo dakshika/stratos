@@ -46,13 +46,14 @@ if (!elements) {
 
     if(!elements){
         elements = uriMatcher.match('/{context}/applications/{formtype}/{applicationId}/{action}');
+        var applicationName = elements.applicationId;
+        //get application json
+        var applicationJSON = util.RESTCalls.getApplicationJSON(applicationName);
+
         if(elements.action == 'view'){
             applicationView = true;
         }else if(elements.action == 'deploy'){
-            var applicationName = elements.applicationId;
             applicationDeploy = true;
-            //get application json
-            var applicationJSON = util.RESTCalls.getApplicationJSON(applicationName);
         }
 
     }else{
