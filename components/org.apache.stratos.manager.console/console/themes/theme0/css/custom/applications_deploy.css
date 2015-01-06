@@ -49,3 +49,6 @@
     left: 52px;
 }
 
+.stepnode-disable{
+    background-color: rgb(228, 228, 228);
+}

@@ -135,7 +135,11 @@ function addJsplumbGroup(groupJSON, cartridgeCounter){
                 .addClass('input-false')
                 .addClass('stepnode')
                 .appendTo('#whiteboard');
-            $(divCartridge).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+            if(parentName == groupJSON.alias){
+                $(divCartridge).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+            }else{
+                $(divCartridge).addClass('stepnode-disable');
+            }
             jsPlumb.addEndpoint($(divCartridge), {
                 anchor: "TopCenter"
             }, generatedCartridgeEndpointOptions);
@@ -161,7 +165,11 @@ function addJsplumbGroup(groupJSON, cartridgeCounter){
                 .addClass('stepnode')
                 .addClass('input-false')
                 .appendTo('#whiteboard');
-            $(divGroup).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+            if(parentName == groupJSON.alias) {
+                $(divGroup).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+            }else{
+                $(divGroup).addClass('stepnode-disable');
+            }
             jsPlumb.addEndpoint($(divGroup), {
                 anchor:"BottomCenter"
             }, bottomConnectorOptions);
