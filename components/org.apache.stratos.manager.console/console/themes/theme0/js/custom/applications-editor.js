@@ -305,7 +305,7 @@ function generateGroupPreview(data) {
         links = tree.links(nodes);
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d) { d.y = d.depth * 100; });
+    nodes.forEach(function(d) { d.y = d.depth * 60; });
 
     // Declare the nodesâ€¦
     var node = svg.selectAll("g.node")
@@ -317,9 +317,14 @@ function generateGroupPreview(data) {
         .attr("transform", function(d) {
             return "translate(" + d.x + "," + d.y + ")"; });
 
-    nodeEnter.append("circle")
-        .attr("r", 4)
-        .style("fill", "#fff");
+    nodeEnter.append("rect")
+        .attr("x", -10)
+        .attr("y", -10)
+        .attr("rx",2)
+        .attr("ry",2)
+        .attr("width", 20)
+        .attr("height", 20)
+        .style("fill", "#ABA6A6");
 
     nodeEnter.append("text")
         .attr("y", function(d) {
