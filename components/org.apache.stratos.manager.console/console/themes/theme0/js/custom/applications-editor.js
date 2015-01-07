@@ -822,26 +822,52 @@ function deleteNode(endPoint){
     if(endPoint.attr('id') != 'applicationId'){
         var allnodes = $(".stepnode");
         var superParent = endPoint.attr('id').split("-")[0]+endPoint.attr('id').split("-")[1];
+        var nodeName = endPoint.attr('data-ctype');
+        var nodeType = endPoint.attr('data-type');
+        var notyText = '';
 
-        allnodes.each(function(){
-            var currentId = $(this).attr('id').split("-")[0]+$(this).attr('id').split("-")[1];
-            if(currentId == superParent){
-                var that=$(this);      //get all of your DIV tags having endpoints
-                for (var i=0;i<that.length;i++) {
-                    var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
-                    if(endpoints){
-                        for (var m=0;m<endpoints.length;m++) {
-                            // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
-                            jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
+        if(nodeType == 'group'){
+            notyText = 'This will remove related nodes from the Editor. Are you sure you want to delete '
+                            +nodeType + ': '+nodeName+'?';
+        }else{
+            notyText = 'Are you sure you want to delete '+nodeType + ': '+nodeName+'?';
+        }
+        noty({
+            layout: 'bottomRight',
+            type: 'warning',
+            text:  notyText,
+            buttons: [
+                {addClass: 'btn btn-primary', text: 'Yes', onClick: function($noty) {
+                    $noty.close();
+
+                    allnodes.each(function(){
+                        var currentId = $(this).attr('id').split("-")[0]+$(this).attr('id').split("-")[1];
+                        if(currentId == superParent){
+                            var that=$(this);      //get all of your DIV tags having endpoints
+                            for (var i=0;i<that.length;i++) {
+                                var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
+                                if(endpoints){
+                                    for (var m=0;m<endpoints.length;m++) {
+                                        // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
+                                        jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
+                                    }
+                                }
+
+                            }
+                            jsPlumb.detachAllConnections($(this));
+                            $(this).remove();
                         }
-                    }
 
+                    });
                 }
-                jsPlumb.detachAllConnections($(this));
-                $(this).remove();
-            }
-
+                },
+                {addClass: 'btn btn-danger', text: 'No', onClick: function($noty) {
+                    $noty.close();
+                }
+                }
+            ]
         });
+
 
     }
 
