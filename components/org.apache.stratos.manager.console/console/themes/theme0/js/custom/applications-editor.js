@@ -820,16 +820,29 @@ $(function () {
 //remove nodes from workarea
 function deleteNode(endPoint){
     if(endPoint.attr('id') != 'applicationId'){
-        var that=endPoint;      //get all of your DIV tags having endpoints
-        for (var i=0;i<that.length;i++) {
-            var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
-            for (var m=0;m<endpoints.length;m++) {
-                // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
-                jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
+        var allnodes = $(".stepnode");
+        var superParent = endPoint.attr('id').split("-")[0]+endPoint.attr('id').split("-")[1];
+
+        allnodes.each(function(){
+            var currentId = $(this).attr('id').split("-")[0]+$(this).attr('id').split("-")[1];
+            if(currentId == superParent){
+                var that=$(this);      //get all of your DIV tags having endpoints
+                for (var i=0;i<that.length;i++) {
+                    var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
+                    if(endpoints){
+                        for (var m=0;m<endpoints.length;m++) {
+                            // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
+                            jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
+                        }
+                    }
+
+                }
+                jsPlumb.detachAllConnections($(this));
+                $(this).remove();
             }
-        }
-        jsPlumb.detachAllConnections(endPoint);
-        endPoint.remove();
+
+        });
+
     }
 
 }
