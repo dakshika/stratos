@@ -797,6 +797,7 @@ $(document).ready(function(){
             if(key == 'delete'){
                 deleteNode($(this));
             }else if(key == 'edit'){
+                document.getElementById('component-data').scrollIntoView();
                 tabData($(this));
             }
         },
@@ -859,6 +860,8 @@ function deleteNode(endPoint){
                         }
 
                     });
+                    //clear html area
+                    $('#component-data').html('');
                 }
                 },
                 {addClass: 'btn btn-danger', text: 'No', onClick: function($noty) {
@@ -869,6 +872,8 @@ function deleteNode(endPoint){
         });
 
 
+    }else{
+        var n = noty({text: 'Sorry you can\'t remove application node' , layout: 'bottomRight', type: 'warning'});
     }
 
 }
