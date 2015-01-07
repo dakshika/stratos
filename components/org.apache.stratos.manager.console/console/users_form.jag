@@ -39,9 +39,14 @@ if (!elements) {
     elements = uriMatcher.match('/{context}/users/{formtype}/{action}/');
     isForm = true;
     if(elements.action == 'new'){
-        var formData = require('controllers/forms/schema/users/' + elements.formtype + '.json'),
+        try {
+            var formData = require('controllers/forms/schema/users/' + elements.formtype + '.json'),
                 formDataRaw = require('controllers/forms/default/users/' + elements.formtype + '.json'),
                 formTitle = formData.title;
+        }catch (e) {
+            log.error(e.message);
+            error.push({"errorMessage": e.message});
+        }
     }
 }
 
