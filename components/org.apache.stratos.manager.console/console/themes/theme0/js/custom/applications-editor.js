@@ -324,7 +324,9 @@ function generateGroupPreview(data) {
         .attr("ry",2)
         .attr("width", 20)
         .attr("height", 20)
-        .style("fill", "#ABA6A6");
+        .attr("stroke-width", 1)
+        .attr("stroke", "silver")
+        .style("fill", "#fff");
 
     nodeEnter.append("text")
         .attr("y", function(d) {
@@ -803,9 +805,7 @@ $(document).ready(function(){
         },
         items: {
             "edit": {name: "Edit", icon: "edit"},
-            "delete": {name: "Delete", icon: "delete"},
-            "sep1": "---------",
-            "quit": {name: "Close", icon: "quit"}
+            "delete": {name: "Delete", icon: "delete"}
         }
     });
 
@@ -862,6 +862,7 @@ function deleteNode(endPoint){
                     });
                     //clear html area
                     $('#component-data').html('');
+                    activateTab('general');
                 }
                 },
                 {addClass: 'btn btn-danger', text: 'No', onClick: function($noty) {
