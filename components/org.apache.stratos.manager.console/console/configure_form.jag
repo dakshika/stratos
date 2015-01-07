@@ -63,7 +63,7 @@ if (!elements) {
 }
 
 //get data for listing pages
-if(isEdit == false) {
+if(isEdit == false && elements.action != 'new') {
     var formtype = elements.formtype;
 
     switch (formtype) {
