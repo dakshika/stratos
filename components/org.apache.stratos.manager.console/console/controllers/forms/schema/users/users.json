@@ -14,11 +14,14 @@
             "id": "root/userName",
             "title": "User Name",
             "name": "User Name",
+            "minLength":4,
+            "required":true,
             "default": ""
         },
         "credential": {
             "type":"string",
             "id": "root/credential",
+            "minLength":6,
             "title": "Password",
             "name": "Password",
             "default": ""

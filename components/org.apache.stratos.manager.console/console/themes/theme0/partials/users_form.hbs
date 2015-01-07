@@ -142,7 +142,13 @@
             editor.on('change', function () {
                 // Get an array of errors from the validator
                 var errors = editor.validate();
-                //       var indicator = document.getElementById('valid_indicator');
+                if (errors.length) {
+                    for (var i = 0; i < errors.length; i++) {
+                        var n = noty({text: errors[i].message + ' in ' + errors[i].path, layout: 'bottomRight',
+                            type: 'error', timeout: 2000});
+                    }
+
+                }
             });
 
         {{else}}
