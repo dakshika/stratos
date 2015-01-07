@@ -52,3 +52,7 @@
 .stepnode-disable{
     background-color: rgb(228, 228, 228);
 }
+
+#deploy-ui>div>h3{
+     display: none;
+ }
