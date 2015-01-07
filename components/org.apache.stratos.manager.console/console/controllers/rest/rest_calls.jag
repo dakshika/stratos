@@ -108,6 +108,10 @@ RESTCalls = new function(){
         return this.sendReceive("GET","/kubernetesClusters",{});
     };
 
+    this.getKubernetesCluster = function(kubernetesClusterId){
+        return this.sendReceive("GET","/kubernetesClusters/"+kubernetesClusterId,{});
+    };
+
     this.getApplicableDeploymentPolicies = function(cartridgeType){
         return this.sendReceive("GET","/" + cartridgeType + "/policy/deployment/",{});
     };
@@ -120,8 +124,12 @@ RESTCalls = new function(){
         return this.sendReceive("GET","/service/" + cartridgeType,{});
     };
 
-    this.getPolicyAutoScale = function(){
+    this.getPolicyAutoScales = function(){
         return this.sendReceive("GET","/autoscalingPolicies",{});
+    };
+
+    this.getPolicyAutoScale = function(autoscalePolicyId){
+        return this.sendReceive("GET","/autoscalingPolicies/"+autoscalePolicyId,{});
     };
 
     this.getPolicyDeployment = function(){
@@ -132,6 +140,10 @@ RESTCalls = new function(){
     };
     this.getCartridges = function(){
         return this.sendReceive("GET","/cartridges",{});
+    };
+
+    this.getCartridge = function(cartridgeType){
+        return this.sendReceive("GET","/cartridges/"+cartridgeType,{});
     };
 
     this.getGroups = function(){
