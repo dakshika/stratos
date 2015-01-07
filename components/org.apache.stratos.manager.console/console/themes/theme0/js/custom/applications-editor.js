@@ -345,46 +345,6 @@ function generateGroupPreview(data) {
 
 }
 
-// ************* Add context menu for nodes ******************
-//remove nodes from workarea
-function deleteNode(endPoint){
-    if(endPoint.attr('id') != 'applicationId'){
-        var that=endPoint;      //get all of your DIV tags having endpoints
-        for (var i=0;i<that.length;i++) {
-            var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
-            for (var m=0;m<endpoints.length;m++) {
-                // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
-                jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
-            }
-        }
-        jsPlumb.detachAllConnections(endPoint);
-        endPoint.remove();
-    }
-
-}
-
-//genrate context menu for nodes
-$(function(){
-    /*$.contextMenu({
-        selector: '.stepnode',
-        callback: function(key, options) {
-            var m = "clicked: " + key + $(this);
-            if(key == 'delete'){
-                deleteNode($(this));
-            }else if(key == 'edit'){
-
-            }
-        },
-        items: {
-            "edit": {name: "Edit", icon: "edit"},
-            "delete": {name: "Delete", icon: "delete"},
-            "sep1": "---------",
-            "quit": {name: "Quit", icon: "quit"}
-        }
-    });*/
-
-});
-
 var applicationJson = {};
 //Definition JSON builder
 function generateJsplumbTree(collector, connections){
@@ -671,7 +631,6 @@ function dagrePosition(){
 
     // Applying the calculated layout
     g.nodes().forEach(function(v) {
-        console.log(g.nodes(v).x)
         $("#" + v).css("left", g.node(v).x + "px");
         $("#" + v).css("top", g.node(v).y + "px");
     });
@@ -720,18 +679,22 @@ $(document).ready(function(){
     Repaint();
 
     $('#whiteboard').on('click', '.stepnode', function(){
+        tabData($(this));
+    });
+
+    function tabData(node){
         //get tab activated
-        if($(this).attr('id') == 'applicationId'){
+        if(node.attr('id') == 'applicationId'){
             activateTab('general');
         }else{
             activateTab('components');
             $('#component-info-update').prop("disabled", false);
         }
 
-        blockId = $(this).attr('id');
-        var blockType = $(this).attr('data-type');
+        blockId = node.attr('id');
+        var blockType = node.attr('data-type');
         var startval;
-        var ctype = $(this).attr('data-ctype');
+        var ctype = node.attr('data-ctype');
         if(blockType == 'cartridge' || blockType == 'group-cartridge'){
             startval = cartridgeBlockDefault;
             startval['type'] = ctype;
@@ -740,8 +703,8 @@ $(document).ready(function(){
             startval['name'] = ctype;
         }
 
-        if($(this).attr('data-generated')) {
-            startval = JSON.parse(decodeURIComponent($(this).attr('data-generated')));
+        if(node.attr('data-generated')) {
+            startval = JSON.parse(decodeURIComponent(node.attr('data-generated')));
         }
         $('#component-data').html('');
 
@@ -758,8 +721,7 @@ $(document).ready(function(){
                 generateHtmlBlock(cartridgeBlockTemplate, startval);
                 break;
         }
-
-    });
+    }
 
     function generateHtmlBlock(schema, startval){
         // Initialize the editor
@@ -827,9 +789,48 @@ $(document).ready(function(){
         dagrePosition();
     });
 
+    //genrate context menu for nodes
+    $.contextMenu({
+        selector: '.stepnode',
+        callback: function(key, options) {
+            var m = "clicked: " + key + $(this);
+            if(key == 'delete'){
+                deleteNode($(this));
+            }else if(key == 'edit'){
+                tabData($(this));
+            }
+        },
+        items: {
+            "edit": {name: "Edit", icon: "edit"},
+            "delete": {name: "Delete", icon: "delete"},
+            "sep1": "---------",
+            "quit": {name: "Close", icon: "quit"}
+        }
+    });
+
 });
 
 //bootstrap tooltip added
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+
+// ************* Add context menu for nodes ******************
+//remove nodes from workarea
+function deleteNode(endPoint){
+    if(endPoint.attr('id') != 'applicationId'){
+        var that=endPoint;      //get all of your DIV tags having endpoints
+        for (var i=0;i<that.length;i++) {
+            var endpoints = jsPlumb.getEndpoints($(that[i])); //get all endpoints of that DIV
+            for (var m=0;m<endpoints.length;m++) {
+                // if(endpoints[m].anchor.type=="TopCenter") //Endpoint on right side
+                jsPlumb.deleteEndpoint(endpoints[m]);  //remove endpoint
+            }
+        }
+        jsPlumb.detachAllConnections(endPoint);
+        endPoint.remove();
+    }
+
+}
+
