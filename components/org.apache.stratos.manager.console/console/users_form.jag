@@ -38,22 +38,27 @@ var caramel = require('caramel'),
 if (!elements) {
     elements = uriMatcher.match('/{context}/users/{formtype}/{action}/');
     isForm = true;
+    if(elements.action == 'new'){
+        var formData = require('controllers/forms/schema/users/' + elements.formtype + '.json'),
+                formDataRaw = require('controllers/forms/default/users/' + elements.formtype + '.json'),
+                formTitle = formData.title;
+    }
 }
 
 //create left menu
 var leftMenu = menuGenerator(context, menuJson.menu, userPermissions);
 
-var formData = require('controllers/forms/schema/users/' + elements.formtype + '.json'),
-        formDataRaw = require('controllers/forms/default/users/' + elements.formtype + '.json'),
-        formTitle = formData.title;
+
 
 if (elements.formtype == 'users') {
+    formTitle = 'Users';
     list_data = util.RESTCalls.getUserList();
     if (list_data && list_data.length === 0) {
         list_data = null;
     }
 
 } else if (elements.formtype == 'tenants') {
+    formTitle = 'Tenants'
     list_data = util.RESTCalls.getTenants();
     if (list_data && list_data.length === 0) {
         list_data = null;
