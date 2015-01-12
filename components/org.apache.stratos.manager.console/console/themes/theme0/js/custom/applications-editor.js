@@ -869,6 +869,7 @@ function deleteNode(endPoint){
                         }
 
                     });
+
                     //clear html area
                     $('#component-data').html('');
                     activateTab('general');
@@ -880,6 +881,7 @@ function deleteNode(endPoint){
                 }
             ]
         });
+
 
 
     }else{

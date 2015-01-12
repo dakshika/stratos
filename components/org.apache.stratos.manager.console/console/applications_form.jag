@@ -58,6 +58,7 @@ if (!elements) {
     }else{
         isForm = true;
         if (elements.formtype == 'applications' && elements.action != 'new') {
+
             applicationHbs = 'applicationTopology';
             topology_data = util.RESTCalls.getApplicationTopology(elements.action);
         }else if(elements.formtype == 'applications' && elements.action == 'new'){
