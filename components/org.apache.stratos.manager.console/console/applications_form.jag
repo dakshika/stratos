@@ -32,9 +32,8 @@ var log = new Log("apachestratos.applications_form"),
         uriMatcher = new URIMatcher(request.getRequestURI()),
         elements = uriMatcher.match('/{context}/applications/{formtype}/'),
         breadcrumbPathLevelOne = 'applications',
-        formDataEdit = topology_data = editorGroups = editorCartridges = '',
-        isEdit = applicationView = applicationTopology= applicationEditor = isForm = false,
-        applicationDeploy = false,
+        formDataEdit = topology_data = editorGroups = editorCartridges = applicationHbs ='',
+        isEdit  = isForm = false,
         userPermissions = session.get('PERMISSIONS');
 
 //create left menu
@@ -51,18 +50,18 @@ if (!elements) {
         var applicationJSON = util.RESTCalls.getApplicationJSON(applicationName);
 
         if(elements.action == 'view'){
-            applicationView = true;
+            applicationHbs = 'applicationView';
         }else if(elements.action == 'deploy'){
-            applicationDeploy = true;
+            applicationHbs = 'applicationDeploy';
         }
 
     }else{
         isForm = true;
         if (elements.formtype == 'applications' && elements.action != 'new') {
-            applicationTopology = true;
+            applicationHbs = 'applicationTopology';
             topology_data = util.RESTCalls.getApplicationTopology(elements.action);
         }else if(elements.formtype == 'applications' && elements.action == 'new'){
-            applicationEditor = true;
+            applicationHbs = 'applicationEditor';
             editorGroups =  util.RESTCalls.getGroups();
             editorCartridges = util.RESTCalls.getCartridges();
         }else  if(elements.action != 'new'){
@@ -117,10 +116,7 @@ var caramelData = {
     topology_data: JSON.stringify(topology_data),
     editorGroups: JSON.stringify(editorGroups),
     editorCartridges: JSON.stringify(editorCartridges),
-    applicationTopology: applicationTopology,
-    applicationView:applicationView,
-    applicationEditor: applicationEditor,
-    applicationDeploy:applicationDeploy,
+    applicationHbs: applicationHbs,
     applicationName:applicationName,
     applicationJSON:JSON.stringify(applicationJSON),
     formTitle: formTitle,
