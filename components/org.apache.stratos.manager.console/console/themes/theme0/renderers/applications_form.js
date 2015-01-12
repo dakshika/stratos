@@ -83,15 +83,16 @@ var render = function (theme, data, meta, require) {
             break;
 
             case "applicationTopology":
-                theme('index', {
-                    page_meta: [
-                        {
-                            partial: 'index_title',
-                            context: {
-                                page_title: 'Apache Stratos - Application Managment',
-                                page_description: 'Apache Stratos - Application Managment'
-                            }
+
+            theme('index', {
+                page_meta: [
+                    {
+                        partial: 'index_title',
+                        context: {
+                            page_title: 'Apache Stratos - Application Managment',
+                            page_description: 'Apache Stratos - Application Managment'
                         }
+                    }
                     ],
                     header: [
                         {
@@ -127,13 +128,21 @@ var render = function (theme, data, meta, require) {
                     ],
                     content: [
                         {
-                            partial: 'applications_view',
+                            partial: 'applications_topology',
                             context: {
-                                applicationName: data.applicationName,
                                 formContext: data.breadcrumbPathLevelTwo,
                                 appName: data.appName,
-                                applicationJSON: data.applicationJSON,
-                                formTitle: data.formTitle
+                                topologyData: data.topologyData,
+                                form_action: data.form_action,
+                                formHtml: data.formHtml,
+                                formData: data.formData,
+                                formDataRaw: data.formDataRaw,
+                                formDataEdit: data.formDataEdit,
+                                isForm: data.isForm,
+                                isEdit: data.isEdit,
+                                formTitle: data.formTitle,
+                                content_body: {sections: data.list_data
+                                }
                             }
                         }
 
