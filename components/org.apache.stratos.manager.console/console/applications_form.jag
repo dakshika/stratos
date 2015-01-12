@@ -65,9 +65,14 @@ if (!elements) {
             applicationHbs = 'applicationEditor';
             editorGroups =  util.RESTCalls.getGroups();
             editorCartridges = util.RESTCalls.getCartridges();
-        }else  if(elements.action != 'new'){
+        }else  if(elements.formtype == 'groups' && elements.action == 'new'){
+            applicationHbs = 'applicationsGroupEditor';
+
+        }else  if(elements.formtype == 'groups' && elements.action != 'new'){
             isEdit = true;
+
         }
+
     }
 
 }
