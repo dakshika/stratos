@@ -583,15 +583,20 @@ var groupBlockDefault = {
 //create cartridge list
 var cartridgeListHtml='';
 function generateCartridges(data){
-    for(var cartridge in data){
-        var cartridgeData = data[cartridge];
-        cartridgeListHtml += '<div class="block-cartridge" ' +
-            'data-info="'+cartridgeData.description+ '"'+
-            'data-toggle="tooltip" data-placement="bottom" title="Single Click to view details. Double click to add"'+
-            'id="'+cartridgeData.type+'">'
-            + cartridgeData.displayName+
-            '</div>'
+    if(data.length == 0){
+        cartridgeListHtml = 'No Cartridges found..';
+    }else{
+        for(var cartridge in data){
+            var cartridgeData = data[cartridge];
+            cartridgeListHtml += '<div class="block-cartridge" ' +
+                'data-info="'+cartridgeData.description+ '"'+
+                'data-toggle="tooltip" data-placement="bottom" title="Single Click to view details. Double click to add"'+
+                'id="'+cartridgeData.type+'">'
+                + cartridgeData.displayName+
+                '</div>'
+        }
     }
+
     //append cartridge into html content
     $('#cartridge-list').append(cartridgeListHtml);
 }
@@ -599,13 +604,17 @@ function generateCartridges(data){
 //create group list
 var groupListHtml='';
 function generateGroups(data){
-    for(var group in data){
-        var groupData = data[group];
-        groupListHtml += '<div class="block-group" ' +
-            ' data-info="'+encodeURIComponent(JSON.stringify(groupData))+'"'+
-            'id="'+groupData.name+'">'
-            + groupData.name+
-            '</div>'
+    if(data.length == 0){
+        groupListHtml = 'No Groups found..';
+    }else {
+        for (var group in data) {
+            var groupData = data[group];
+            groupListHtml += '<div class="block-group" ' +
+                ' data-info="' + encodeURIComponent(JSON.stringify(groupData)) + '"' +
+                'id="' + groupData.name + '">'
+                + groupData.name +
+                '</div>'
+        }
     }
     //append cartridge into html content
     $('#group-list').append(groupListHtml);
