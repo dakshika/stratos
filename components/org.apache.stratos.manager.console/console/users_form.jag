@@ -56,14 +56,14 @@ var leftMenu = menuGenerator(context, menuJson.menu, userPermissions);
 
 
 if (elements.formtype == 'users') {
-    formTitle = 'Users';
+    formTitle = 'User';
     list_data = util.RESTCalls.getUserList();
     if (list_data && list_data.length === 0) {
         list_data = null;
     }
 
 } else if (elements.formtype == 'tenants') {
-    formTitle = 'Tenants'
+    formTitle = 'Tenant'
     list_data = util.RESTCalls.getTenants();
     if (list_data && list_data.length === 0) {
         list_data = null;
