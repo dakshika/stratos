@@ -67,7 +67,7 @@ if (!elements) {
             editorCartridges = util.RESTCalls.getCartridges();
         }else  if(elements.formtype == 'groups' && elements.action == 'new'){
             applicationHbs = 'applicationsGroupEditor';
-
+            editorCartridges = util.RESTCalls.getCartridges();
         }else  if(elements.formtype == 'groups' && elements.action != 'new'){
             isEdit = true;
 
