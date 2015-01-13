@@ -69,8 +69,8 @@ if(isEdit == false && elements.action != 'new') {
     switch (formtype) {
 
         case "autoscalingpolicies":
-            formTitle = "Autoscaling policie",
-                    buttonText = "autoscaling policy";
+            formTitle = "Auto-scaling Policie",
+                    buttonText = "Auto-scaling Policy";
             list_data = util.RESTCalls.getPolicyAutoScales();
             if (list_data && list_data.length === 0) {
                 list_data = null;
