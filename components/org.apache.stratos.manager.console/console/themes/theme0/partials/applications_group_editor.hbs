@@ -14,8 +14,10 @@
 
                 </div>
                 <div class='col-md-7'>
-                    <button class='btn btn-info btn-lg pull-right' type='button' id='deploy' data-form='{{formContext}}'> Deploy {{formTitle}}</button>
-                    <button class='btn btn-default btn-lg pull-right button-gap' type='button' onclick='window.location.replace(document.referrer)'> Cancel</button>
+                    <button class='btn btn-info btn-lg pull-right' type='button' id='deploy'
+                            disabled="disabled" data-form='{{formContext}}'> Add {{formTitle}}</button>
+                    <button class='btn btn-default btn-lg pull-right button-gap' type='button'
+                            onclick='window.location.replace(document.referrer)'> Cancel</button>
 
                 </div>
             </div>
@@ -44,7 +46,7 @@
                             <h4 class="panel-title">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    Group
+                                    Group Template
                                 </a>
                             </h4>
                         </div>
@@ -74,7 +76,7 @@
                     <i class="fa fa-refresh fa-2x"></i>
                 </div>
                 <div id="whiteboard">
-                    <div id="groupBase" class="stepnode input-false">
+                    <div id="group-base" class="stepnode input-false" data-type="group">
                         Group
                         <div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>
                     </div>
@@ -94,8 +96,9 @@
                     <!-- Tab panes -->
                     <div class="tab-content app-details-tab-content">
                         <div role="tabpanel" class="tab-pane active" id="general">
-
-                            <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="component-info-update" >Update</button>
+                            <div id="general-data"></div>
+<!--                            <div class="form-group">
                                 <label class="control-label" for="name">Group Name:</label>
                                 <input type="text" class="form-control level-root" placeholder="" id="name">
                             </div>
@@ -126,7 +129,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
