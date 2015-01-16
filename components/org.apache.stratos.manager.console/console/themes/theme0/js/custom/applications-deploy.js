@@ -112,6 +112,7 @@ function addJsplumbGroup(groupJSON, cartridgeCounter){
     var divRoot = $('<div>').attr({'id':cartridgeCounter+'-'+groupJSON.alias,'data-type':'group','data-ctype':groupJSON.alias})
         .text(groupJSON.alias)
         .addClass('input-false')
+        .addClass('application')
         .addClass('stepnode')
         .appendTo('#whiteboard');
     $(divRoot).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
@@ -135,11 +136,9 @@ function addJsplumbGroup(groupJSON, cartridgeCounter){
                 .addClass('input-false')
                 .addClass('stepnode')
                 .appendTo('#whiteboard');
-            if(parentName == groupJSON.alias){
-                $(divCartridge).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
-            }else{
-                $(divCartridge).addClass('stepnode-disable');
-            }
+
+            $(divCartridge).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+
             jsPlumb.addEndpoint($(divCartridge), {
                 anchor: "TopCenter"
             }, generatedCartridgeEndpointOptions);
@@ -165,11 +164,9 @@ function addJsplumbGroup(groupJSON, cartridgeCounter){
                 .addClass('stepnode')
                 .addClass('input-false')
                 .appendTo('#whiteboard');
-            if(parentName == groupJSON.alias) {
-                $(divGroup).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
-            }else{
-                $(divGroup).addClass('stepnode-disable');
-            }
+
+            $(divGroup).append('<div class="notification"><i class="fa fa-exclamation-circle fa-2x"></i></div>');
+
             jsPlumb.addEndpoint($(divGroup), {
                 anchor:"BottomCenter"
             }, bottomConnectorOptions);
@@ -210,6 +207,11 @@ jsPlumb.bind("ready", function() {
     dagrePosition();
 });
 
+//use to activate tab
+function activateTab(tab){
+    $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+
 var applicationPolicyTemplate = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "id": "root",
@@ -245,7 +247,7 @@ var applicationPolicyTemplate = {
                             },
                             "activeByDefault": {
                                 "id": "root/applicationPolicy/networkPartition/0/activeByDefault",
-                                "type": "string"
+                                "type": "boolean"
                             },
                             "partitions": {
                                 "id": "root/applicationPolicy/networkPartition/0/partitions",
@@ -323,7 +325,7 @@ $(document).ready(function(){
     JSONEditor.defaults.show_errors = "always";
     var applicationPolicyEditor, childPolicyEditor;
 
-    applicationPolicyDefault['applicationId']= applicationJSON.applicationId;
+/*    applicationPolicyDefault['applicationId']= applicationJSON.applicationId;
 
     applicationPolicyEditor = new JSONEditor(document.getElementById('deploy-ui'), {
         ajax: false,
@@ -332,7 +334,37 @@ $(document).ready(function(){
         format: "grid",
         startval: applicationPolicyDefault
     });
-    applicationPolicyEditor.getEditor('root.applicationId').disable();
+    applicationPolicyEditor.getEditor('root.applicationId').disable();*/
+
+    $('#whiteboard').on('click', '.stepnode', function(){
+        tabData($(this));
+        treeActivation($(this));
+    });
+
+    function tabData(node){
+        //get tab activated
+        if(node.hasClass( "application" )){
+            activateTab('general');
+        }else{
+            activateTab('components');
+        }
+
+    }
+
+    function treeActivation(node){
+        var treePath = jsPlumb.getAllConnections();
+
+        for (var i = 0; i < treePath.length; i++) {
+            var nodeitem = treePath[i];
+            var nodeid = node.attr('id');
+            if(nodeitem.source.id == nodeid){
+                $('#'+nodeitem.target.id).addClass('stepnode-disable');
+            }else if(nodeitem.target.id == nodeid){
+                $('#'+nodeitem.source.id).addClass('stepnode-disable');
+            }
+        }
+
+    }
 
     function generateHtmlBlock(schema, startval){
         // Initialize the editor
@@ -343,7 +375,6 @@ $(document).ready(function(){
             format: "grid",
             startval: startval
         });
-
 
     }
 
